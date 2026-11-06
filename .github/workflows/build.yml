@@ -13,9 +13,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Extract Project Files
+      - name: Extract Latest Project Zip
         run: |
-          unzip -q -o "GameTranslator (1).zip" -d .
+          LATEST_ZIP=$(printf "%s\n" GameTranslator*.zip | sort -V | tail -n 1)
+          echo "Extracting: $LATEST_ZIP"
+          unzip -q -o "$LATEST_ZIP" -d .
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
